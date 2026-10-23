@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important} body{margin:0} :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Join the 19%</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>@font-face{font-family:"Anton";font-weight:400;src:url("fonts/anton-latin-400-normal.woff2") format("woff2");font-display:swap}@font-face{font-family:"IBM Plex Sans";font-weight:400;src:url("fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2");font-display:swap}@font-face{font-family:"IBM Plex Sans";font-weight:500;src:url("fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2");font-display:swap}@font-face{font-family:"IBM Plex Sans";font-weight:600;src:url("fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2");font-display:swap}@font-face{font-family:"IBM Plex Sans";font-weight:700;src:url("fonts/ibm-plex-sans-latin-700-normal.woff2") format("woff2");font-display:swap}</style>
+<style>
+/* Layout: one player stage (16:9) with an overlay layer, a control rail beneath, and a slim progress card. Single committed look: Skills Bank navy. */
+:root {
+  --navy: #080828; --navy-2: #11113f; --navy-3: #1b1b5c; --line: rgba(235,244,255,.14);
+  --gold: #FFBC3A; --gold-ink: #2a1d00; --ice: #EBF4FF; --muted: #a9b4d6; --ok: #40BDA9; --bad: #F26444; --blue: #4D88E8;
+  --display: "Anton", "Impact", "Arial Narrow", sans-serif; --body: "IBM Plex Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif; --mono: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  color-scheme: dark;
+}
+html, body { background: var(--navy); color: var(--ice); }
+body { font-family: var(--body); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 18px 28px; }
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 14px; }
+header { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.brand .logo { height: 34px; width: auto; flex: none; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(26px, 4vw, 40px); letter-spacing: .5px; margin: 0; line-height: 1; text-wrap: balance; }
+h1 em { color: var(--gold); font-style: normal; }
+.tag { font-family: var(--mono); font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+
+/* stage */
+.stage { position: relative; width: 100%; aspect-ratio: 16 / 9; max-width: 100%; background: #000; border-radius: 14px; overflow: hidden; container-type: inline-size; box-shadow: 0 20px 50px rgba(0,0,0,.45); }
+.stage video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.stage:fullscreen { border-radius: 0; }
+.cap { position: absolute; left: 50%; bottom: 4.5cqw; transform: translateX(-50%); max-width: 62%; text-align: center; font-weight: 700; font-size: clamp(12px, 2.1cqw, 30px); line-height: 1.3; color: #fff; background: rgba(8,8,40,.78); padding: .25em .6em; border-radius: 6px; pointer-events: none; }
+.hot { position: absolute; right: 1.4cqw; bottom: 1.5cqw; display: flex; align-items: center; gap: .45em; font: 600 clamp(10px, 1.2cqw, 17px)/1 var(--body); color: var(--gold-ink); background: var(--gold); border: 2px solid #fff; border-radius: 999px; padding: .55em .95em .55em .55em; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,.4); animation: pulse 1.6s ease-in-out infinite; }
+.hot .plus { display: grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 50%; background: var(--navy); color: var(--gold); font-size: 1.1em; }
+.hot:focus-visible, button:focus-visible { outline: 3px solid var(--ice); outline-offset: 3px; }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,188,58,.55), 0 8px 24px rgba(0,0,0,.4); } 50% { box-shadow: 0 0 0 12px rgba(255,188,58,0), 0 8px 24px rgba(0,0,0,.4); } }
+.start { position: absolute; inset: 0; display: grid; place-items: center; background: radial-gradient(ellipse at 50% 40%, rgba(35,35,122,.72), rgba(8,8,40,.94)); text-align: center; padding: 4cqw; }
+.start-inner { display: grid; gap: 1.6cqw; justify-items: center; }
+.start h2 { font: 400 clamp(24px, 6cqw, 84px)/1 var(--display); margin: 0; }
+.start h2 em { color: var(--gold); font-style: normal; }
+.start p { margin: 0; color: var(--muted); font-size: clamp(12px, 1.7cqw, 20px); }
+.chips { display: flex; gap: .6em; flex-wrap: wrap; justify-content: center; }
+.chip { font: 700 clamp(10px, 1.3cqw, 15px)/1 var(--mono); letter-spacing: 1px; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: .55em .9em; color: var(--ice); }
+.big-play { font: 700 clamp(14px, 2cqw, 24px)/1 var(--body); background: var(--gold); color: var(--gold-ink); border: 0; border-radius: 999px; padding: .9em 1.8em; cursor: pointer; display: inline-flex; gap: .6em; align-items: center; }
+
+/* controls */
+.rail { display: grid; grid-template-columns: auto 1fr auto auto auto; align-items: center; gap: 12px; background: var(--navy-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
+.ib { background: transparent; color: var(--ice); border: 1px solid var(--line); border-radius: 9px; height: 38px; min-width: 38px; padding: 0 10px; cursor: pointer; font: 700 13px/1 var(--body); display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.ib[aria-pressed="true"] { background: var(--navy-3); border-color: var(--gold); color: var(--gold); }
+.time { font: 700 12px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bar { position: relative; height: 34px; cursor: pointer; min-width: 0; touch-action: none; user-select: none; }
+.bar .knob { position: absolute; top: 10px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px rgba(242,180,0,.45); pointer-events: none; left: 0; }
+.buf { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; border: 5px solid rgba(255,255,255,.25); border-top-color: var(--gold); animation: spin .8s linear infinite; pointer-events: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.bar .track { position: absolute; left: 0; right: 0; top: 15px; height: 5px; border-radius: 3px; background: rgba(235,244,255,.16); }
+.bar .fill { position: absolute; left: 0; top: 15px; height: 5px; border-radius: 3px; background: var(--gold); width: 0; }
+.bar .chap { position: absolute; top: 12px; width: 2px; height: 11px; background: rgba(235,244,255,.35); }
+.mk { position: absolute; top: 9px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; border: 2px solid var(--navy-2); cursor: pointer; padding: 0; }
+.mk.ex { background: var(--gold); }
+.mk.q { background: var(--ice); border-radius: 3px; transform: rotate(45deg) scale(.82); }
+.mk.q.done-ok { background: var(--ok); } .mk.q.done-bad { background: var(--bad); }
+.mk.ex.seen { background: transparent; border: 2px solid var(--gold); }
+.status { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; justify-content: space-between; font-size: 13px; color: var(--muted); }
+.status b { color: var(--ice); font-variant-numeric: tabular-nums; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); vertical-align: middle; margin-right: 6px; }
+.dia { display: inline-block; width: 9px; height: 9px; background: var(--ice); transform: rotate(45deg); vertical-align: middle; margin-right: 7px; }
+.chapname { font: 700 12px var(--mono); letter-spacing: 1px; color: var(--gold); text-transform: uppercase; }
+
+/* layers (fixed so they work in fullscreen and on phones) */
+.layer { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: rgba(5,5,24,.72); backdrop-filter: blur(3px); overflow: auto; }
+.panel { width: min(760px, 100%); max-height: calc(100% - 8px); overflow: auto; background: var(--navy-2); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 30px 70px rgba(0,0,0,.55); }
+.panel-head { padding: 20px 24px 14px; border-bottom: 1px solid var(--line); display: grid; gap: 6px; }
+.kicker { font: 600 12px var(--body); letter-spacing: 1.6px; color: var(--gold); text-transform: uppercase; }
+.panel h3 { font: 400 clamp(24px, 4vw, 34px)/1.05 var(--display); margin: 0; letter-spacing: .3px; text-wrap: balance; }
+.panel-body { padding: 18px 24px; display: grid; gap: 12px; }
+.ex-card { background: var(--navy); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 6px; }
+.ex-card .lab { font: 600 12px var(--body); letter-spacing: 1.2px; color: var(--gold); text-transform: uppercase; }
+.ex-card p { margin: 0; line-height: 1.55; font-size: 15.5px; }
+.ex-card .prompt { font: 400 16px/1.55 var(--body); color: var(--ice); background: rgba(235,244,255,.05); border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0; padding: 10px 14px; }
+.ex-card .prompt::before { content: "\201C"; color: var(--gold); font-weight: 700; margin-right: 2px; } .ex-card .prompt::after { content: "\201D"; color: var(--gold); font-weight: 700; margin-left: 2px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.weak .lab { color: var(--bad); } .strong .lab { color: var(--ok); }
+.tip { font-size: 13px; color: var(--muted); border-left: 3px solid var(--gold); padding-left: 10px; }
+.panel-foot { padding: 14px 24px 20px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; border-top: 1px solid var(--line); }
+.btn { font: 700 15px/1 var(--body); border-radius: 999px; padding: 13px 22px; cursor: pointer; border: 2px solid transparent; }
+.btn.primary { background: var(--gold); color: var(--gold-ink); }
+.btn.ghost { background: transparent; color: var(--ice); border-color: var(--line); }
+.countdown { flex: 1 1 160px; min-width: 0; display: grid; gap: 6px; font-size: 12px; color: var(--muted); }
+.countdown .cd-track { height: 4px; background: rgba(235,244,255,.12); border-radius: 2px; overflow: hidden; }
+.countdown .cd-fill { height: 100%; background: var(--gold); width: 100%; }
+
+/* quiz */
+.opts { display: grid; gap: 10px; }
+.opt { text-align: left; font: 600 16px/1.4 var(--body); color: var(--ice); background: var(--navy); border: 2px solid var(--line); border-radius: 12px; padding: 14px 16px; cursor: pointer; display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: start; }
+.opt .k { font: 700 13px var(--mono); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--navy-3); color: var(--gold); }
+.opt:hover:not([disabled]) { border-color: var(--gold); }
+.opt.right { border-color: var(--ok); background: rgba(64,189,169,.12); }
+.opt.wrong { border-color: var(--bad); background: rgba(242,100,68,.12); }
+.opt[disabled] { cursor: default; }
+.feedback { border-radius: 12px; padding: 14px 16px; display: grid; gap: 6px; line-height: 1.5; }
+.feedback.ok { background: rgba(64,189,169,.14); border: 1px solid var(--ok); }
+.feedback.bad { background: rgba(242,100,68,.12); border: 1px solid var(--bad); }
+.feedback strong { font-family: var(--display); font-weight: 400; font-size: 24px; letter-spacing: .4px; }
+.feedback.ok strong { color: var(--ok); } .feedback.bad strong { color: var(--bad); }
+.shake { animation: shake .42s ease; }
+@keyframes shake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-9px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(4px); } }
+.pop { animation: pop .5s cubic-bezier(.2,1.6,.4,1); }
+@keyframes pop { 0% { transform: scale(.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+canvas.confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 60; }
+.score { font: 400 clamp(54px, 10vw, 96px)/1 var(--display); color: var(--gold); }
+.result-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.result-row span { font: 700 12px var(--mono); border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; }
+.result-row .r-ok { color: var(--ok); border-color: var(--ok); } .result-row .r-bad { color: var(--bad); border-color: var(--bad); }
+footer { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.rotate-tip { display: none; align-items: center; justify-content: center; gap: 8px; font-size: 12px; color: var(--muted); }
+/* phone portrait: compact chrome so the video gets the space */
+@media (max-width: 640px) {
+  body { padding-left: 10px; padding-right: 10px; padding-block: 10px 18px; }
+  .wrap { gap: 10px; }
+  .brand .logo { height: 24px; } h1 { font-size: 24px; } .tag { font-size: 9px; letter-spacing: 1.4px; }
+  .chapname { font-size: 11px; }
+  .stage { border-radius: 10px; }
+  .rail { grid-template-columns: auto 1fr auto auto; gap: 8px; row-gap: 2px; padding: 6px 10px; }
+  .rail .ib { height: 34px; min-width: 34px; padding: 0 8px; }
+  .rail .time { grid-row: 2; grid-column: 1 / -1; font-size: 11px; }
+  .mk { width: 12px; height: 12px; margin-left: -6px; top: 11px; border-width: 1.5px; }
+  .status .legend { display: none; }
+  .rotate-tip { display: flex; }
+}
+/* phone landscape, full screen, or theatre mode: video first */
+@media (orientation: landscape) and (max-height: 520px) {
+  body { padding: 4px 8px; }
+   header,  .status,  footer { display: none; }
+   .wrap { max-width: none; gap: 6px; }
+   .stage { width: min(100%, calc((100dvh - 62px) * 16 / 9)); margin-inline: auto; border-radius: 6px; }
+   .rail { width: min(100%, calc((100dvh - 62px) * 16 / 9)); margin-inline: auto; grid-template-columns: auto 1fr auto auto auto; padding: 4px 10px; gap: 10px; }
+   .rail .time { grid-row: auto; grid-column: auto; }
+  .rotate-tip { display: none; }
+}
+html:fullscreen body { padding: 4px 8px; }
+body.theater { padding: 4px 8px; }
+  html:fullscreen header, html:fullscreen .status, html:fullscreen footer { display: none; }
+  html:fullscreen .wrap { max-width: none; gap: 6px; }
+  html:fullscreen .stage { width: min(100%, calc((100dvh - 62px) * 16 / 9)); margin-inline: auto; border-radius: 6px; }
+  html:fullscreen .rail { width: min(100%, calc((100dvh - 62px) * 16 / 9)); margin-inline: auto; grid-template-columns: auto 1fr auto auto auto; padding: 4px 10px; gap: 10px; }
+  html:fullscreen .rail .time { grid-row: auto; grid-column: auto; }
+  body.theater header, body.theater .status, body.theater footer { display: none; }
+  body.theater .wrap { max-width: none; gap: 6px; }
+  body.theater .stage { width: min(100%, calc((100dvh - 62px) * 16 / 9)); margin-inline: auto; border-radius: 6px; }
+  body.theater .rail { width: min(100%, calc((100dvh - 62px) * 16 / 9)); margin-inline: auto; grid-template-columns: auto 1fr auto auto auto; padding: 4px 10px; gap: 10px; }
+  body.theater .rail .time { grid-row: auto; grid-column: auto; }
+html:fullscreen .rotate-tip, body.theater .rotate-tip { display: none; }
+
+@container (max-width: 560px) { .start p, .chips { display: none; } .start-inner { gap: 10px; } }
+@media (prefers-reduced-motion: reduce) { .hot { animation: none; } .shake, .pop { animation: none; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <img class="logo" src="data:image/png;base64,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" alt="Skills Bank">
+      <div>
+        <div class="tag">Interactive video · AI@Work</div>
+        <h1>Join the <em>19%</em></h1>
+      </div>
+    </div>
+    <div class="chapname" id="chapName">Ready</div>
+  </header>
+
+  <div class="stage" id="stage">
+    <video id="vid" src="media/join19_1080p.mp4" preload="metadata" playsinline></video>
+    <div class="cap" id="cap" hidden></div>
+    <div class="buf" id="buf" hidden aria-label="Loading"></div>
+    <button class="hot" id="hot" type="button" hidden><span class="plus" aria-hidden="true">+</span><span id="hotLabel">Examples</span></button>
+    <div class="start" id="start">
+      <div class="start-inner">
+        <div class="tag">A Skills Bank original</div>
+        <h2>Join the <em>19%</em></h2>
+        <p>Watch, explore real examples, and check what you learned.</p>
+        <div class="chips"><span class="chip">4:36 video</span><span class="chip">8 example cards</span><span class="chip">5 quick questions</span></div>
+        <button class="big-play" id="startBtn" type="button">▶ Start</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rail" role="group" aria-label="Video controls">
+    <button class="ib" id="playBtn" type="button" aria-label="Play">▶</button>
+    <div class="bar" id="bar" aria-label="Seek">
+      <div class="track"></div><div class="fill" id="fill"></div>
+      <div id="marks"></div><div class="knob" id="knob"></div>
+    </div>
+    <span class="time" id="time">0:00 / 4:36</span>
+    <button class="ib" id="ccBtn" type="button" aria-pressed="false" title="Captions (off)">CC</button>
+    <button class="ib" id="fsBtn" type="button" title="Full screen" aria-label="Full screen">⛶</button>
+  </div>
+
+  <div class="rotate-tip">Turn your phone sideways, or tap ⛶, for a bigger video</div>
+
+  <div class="status">
+    <div class="legend"><span><span class="dot"></span>Examples: tap the gold button when it appears · gold dots jump to them</span><span><span class="dia"></span>Question</span><span>CC: captions</span></div>
+    <div>Questions <b id="qScore">0 / 5</b> · Examples opened <b id="exCount">0 / 8</b></div>
+  </div>
+
+  <footer><span>© 2026 Skills Bank. All rights reserved.</span><span>Designed and produced by Skills Bank Learning &amp; Development</span></footer>
+</div>
+
+<div class="layer" id="layer" hidden></div>
+<canvas class="confetti" id="confetti" hidden></canvas>
+
+<script>
+const TL = {"duration": 276.4, "cues": [{"s": 1.0, "e": 3.0, "t": "A Skills Bank original."}, {"s": 4.45, "e": 6.53, "t": "Everyone has AI now!"}, {"s": 6.58, "e": 8.76, "t": "But only nineteen percent of people..."}, {"s": 8.81, "e": 10.96, "t": "actually use it well."}, {"s": 11.01, "e": 11.9, "t": "So..."}, {"s": 11.95, "e": 13.93, "t": "what are they doing differently?"}, {"s": 14.98, "e": 18.15, "t": "Let's start with how people really use AI at work."}, {"s": 18.2, "e": 21.48, "t": "Forty percent of work messages to ChatGPT..."}, {"s": 21.53, "e": 23.21, "t": "are about writing!"}, {"s": 23.26, "e": 25.36, "t": "And two out of three of those?"}, {"s": 25.41, "e": 28.3, "t": "They ask AI to improve their own text."}, {"s": 28.35, "e": 30.86, "t": "A task that takes five hours alone..."}, {"s": 30.91, "e": 33.89, "t": "can take about forty minutes with AI!"}, {"s": 33.94, "e": 36.55, "t": "The biggest value isn't futuristic."}, {"s": 36.59, "e": 38.2, "t": "It's everyday work."}, {"s": 39.25, "e": 40.95, "t": "To see why that matters..."}, {"s": 41.0, "e": 43.44, "t": "look at the road AI has travelled."}, {"s": 44.48, "e": 46.5, "t": "Nineteen fifty-six."}, {"s": 46.55, "e": 49.48, "t": "The term artificial intelligence is born."}, {"s": 49.53, "e": 53.11, "t": "For decades, AI is built and run by specialists."}, {"s": 54.15, "e": 55.65, "t": "The twenty-tens."}, {"s": 55.7, "e": 57.89, "t": "Machines start learning from data."}, {"s": 57.94, "e": 60.49, "t": "AI powers search and translation..."}, {"s": 60.54, "e": 63.21, "t": "but most employees never direct it."}, {"s": 64.25, "e": 66.56, "t": "November, twenty twenty-two."}, {"s": 66.61, "e": 68.69, "t": "ChatGPT arrives!"}, {"s": 68.74, "e": 72.45, "t": "Suddenly, anyone can direct AI by writing a sentence."}, {"s": 72.5, "e": 74.72, "t": "A hundred million people try it..."}, {"s": 74.77, "e": 76.36, "t": "in about two months."}, {"s": 77.42, "e": 81.42, "t": "And today, more than nine hundred million people use it every week."}, {"s": 81.47, "e": 84.85, "t": "AI no longer just answers. Now, it acts."}, {"s": 85.88, "e": 87.63, "t": "And by twenty thirty?"}, {"s": 87.68, "e": 91.25, "t": "Thirty-nine percent of core skills are expected to change."}, {"s": 92.38, "e": 93.95, "t": "The real shift?"}, {"s": 94.0, "e": 96.34, "t": "AI went from built by experts..."}, {"s": 96.39, "e": 99.47, "t": "to directed by anyone, in plain language."}, {"s": 100.52, "e": 102.64, "t": "So what does acting look like?"}, {"s": 102.69, "e": 106.87, "t": "Ask an assistant about your meeting, and it used to say: check your calendar."}, {"s": 106.92, "e": 107.79, "t": "Now?"}, {"s": 107.84, "e": 110.05, "t": "It prepares the briefing for you."}, {"s": 111.12, "e": 112.68, "t": "First: agents."}, {"s": 112.73, "e": 114.74, "t": "You give an agent a goal."}, {"s": 114.79, "e": 116.97, "t": "It plans the steps, does the work..."}, {"s": 117.02, "e": 120.23, "t": "and waits for your approval before anything goes out."}, {"s": 121.28, "e": 123.08, "t": "Second: connectors."}, {"s": 123.13, "e": 126.51, "t": "A connector links AI to the apps where your work lives."}, {"s": 126.56, "e": 129.02, "t": "Ask it to prep you for Monday's meeting."}, {"s": 129.07, "e": 130.95, "t": "It reads the email thread..."}, {"s": 131.0, "e": 133.09, "t": "finds the meeting in your calendar..."}, {"s": 133.14, "e": 135.41, "t": "pulls the latest deck from your files..."}, {"s": 135.46, "e": 137.31, "t": "and hands you a briefing."}, {"s": 138.35, "e": 139.96, "t": "Third: Skills."}, {"s": 140.01, "e": 142.78, "t": "A Skill is your procedure, written once."}, {"s": 142.83, "e": 145.45, "t": "Your template. Your tone. Your standards."}, {"s": 145.5, "e": 148.42, "t": "AI follows it, every single time."}, {"s": 149.48, "e": 153.61, "t": "No wonder eighty-nine percent of organisations already use AI!"}, {"s": 154.65, "e": 156.42, "t": "But here's the catch."}, {"s": 156.47, "e": 159.29, "t": "Thirty-nine percent of core skills will change."}, {"s": 159.34, "e": 161.9, "t": "People are becoming agent bosses."}, {"s": 161.95, "e": 164.3, "t": "And one skill becomes rare..."}, {"s": 164.35, "e": 165.45, "t": "judgment."}, {"s": 166.65, "e": 168.63, "t": "So what do most people do?"}, {"s": 168.68, "e": 170.59, "t": "They take the shortcut."}, {"s": 170.64, "e": 171.51, "t": "Paste."}, {"s": 171.56, "e": 172.58, "t": "Accept."}, {"s": 172.63, "e": 173.55, "t": "Send!"}, {"s": 174.58, "e": 176.51, "t": "And that's where it goes wrong."}, {"s": 176.56, "e": 178.24, "t": "An unchecked fact."}, {"s": 178.29, "e": 180.57, "t": "A client's data... shared."}, {"s": 180.62, "e": 183.43, "t": "Because fluent language is not evidence."}, {"s": 184.48, "e": 188.78, "t": "Microsoft studied twenty thousand AI users, in ten countries."}, {"s": 188.83, "e": 191.86, "t": "Only nineteen percent reached the frontier."}, {"s": 191.91, "e": 194.78, "t": "They use agents for real, multi-step work."}, {"s": 194.83, "e": 196.64, "t": "They redesign the task."}, {"s": 196.69, "e": 199.25, "t": "And they never hand over their judgment."}, {"s": 200.32, "e": 202.08, "t": "So how do you join them?"}, {"s": 202.13, "e": 204.09, "t": "With four simple skills."}, {"s": 204.14, "e": 205.75, "t": "Tools will change..."}, {"s": 205.8, "e": 206.96, "t": "these won't."}, {"s": 208.02, "e": 209.74, "t": "One: Delegation."}, {"s": 209.79, "e": 214.23, "t": "Decide what belongs to AI, what stays with you, and what you do together."}, {"s": 214.28, "e": 216.2, "t": "AI drafts the update."}, {"s": 216.25, "e": 218.61, "t": "You decide what reaches the client."}, {"s": 219.65, "e": 221.17, "t": "Two: Description."}, {"s": 221.22, "e": 224.31, "t": "Give AI what a capable new colleague would need:"}, {"s": 224.36, "e": 227.11, "t": "the task, the context, and your standards."}, {"s": 228.15, "e": 229.67, "t": "Three: Discernment."}, {"s": 229.72, "e": 232.2, "t": "Fluent language is not evidence."}, {"s": 232.25, "e": 234.21, "t": "Open every citation..."}, {"s": 234.26, "e": 237.39, "t": "and find the exact sentence that supports the claim."}, {"s": 238.45, "e": 240.1, "t": "Four: Diligence."}, {"s": 240.15, "e": 242.41, "t": "You own what you do with AI."}, {"s": 242.46, "e": 245.28, "t": "Check it. Credit your sources. Protect data."}, {"s": 245.33, "e": 247.46, "t": "And disclose AI media."}, {"s": 248.52, "e": 250.75, "t": "And one rule before you type."}, {"s": 250.8, "e": 255.34, "t": "Never paste client names, account numbers, unreleased figures, or passwords."}, {"s": 255.39, "e": 257.44, "t": "Use placeholders instead."}, {"s": 257.5, "e": 258.91, "t": "You keep the task..."}, {"s": 258.96, "e": 260.55, "t": "and drop the risk."}, {"s": 261.73, "e": 263.35, "t": "Direct AI."}, {"s": 263.4, "e": 265.03, "t": "Judge its output."}, {"s": 265.08, "e": 267.32, "t": "Join the nineteen percent!"}, {"s": 267.37, "e": 270.99, "t": "Now, get ready to start your AI training with Skills Bank..."}, {"s": 271.04, "e": 273.41, "t": "and change the world with AI!"}], "hot": {"everyday": [18.2, 38.480000000000004], "agents": [112.73, 120.82], "connectors": [123.13, 137.88], "skills": [140.01, 149.02], "delegation": [209.79, 219.18], "description": [221.22, 227.68], "discernment": [229.72, 237.98], "safety": [250.8, 260.82]}, "quiz": {"q1": 38.45, "q2": 153.85, "q3": 199.52, "q4": 247.72, "q5": 260.78}, "chapters": [{"t": 4.0, "n": "Why it matters"}, {"t": 14.53, "n": "Everyday AI"}, {"t": 38.8, "n": "How we got here"}, {"t": 100.07, "n": "Agents, connectors, Skills"}, {"t": 154.2, "n": "The catch"}, {"t": 166.2, "n": "The shortcut"}, {"t": 184.03, "n": "The 19%"}, {"t": 199.87, "n": "Four skills"}, {"t": 248.07, "n": "Data safety"}, {"t": 261.13, "n": "Your next step"}]};
+
+const EXAMPLES = {
+  everyday: { label: "Everyday AI examples", kicker: "Everyday AI", title: "Where AI saves time today", body: `
+    <div class="grid2">
+      <div class="ex-card"><span class="lab">Edit your own text</span><p class="prompt">Rewrite this paragraph for a client audience. Keep my meaning, cut it to 120 words, and keep a warm, professional tone.</p></div>
+      <div class="ex-card"><span class="lab">Summarise</span><p class="prompt">Summarise this 12-page report in five bullet points for my manager. Flag anything that needs a decision.</p></div>
+      <div class="ex-card"><span class="lab">Search and research</span><p class="prompt">Find three recent, reputable sources on remote onboarding. Give me the link and the key finding for each.</p></div>
+      <div class="ex-card"><span class="lab">Translate and adapt</span><p class="prompt">Translate this announcement into Arabic for all staff. Keep it formal and keep the dates exactly as written.</p></div>
+    </div>
+    <p class="tip">Start with the tasks you already do every week. That is where most of the value is.</p>` },
+  agents: { label: "See an agent at work", kicker: "1 · Agents", title: "One goal, several steps, your approval", body: `
+    <div class="ex-card"><span class="lab">Goal you give</span><p class="prompt">Prepare this week's sales update for the leadership team.</p></div>
+    <div class="ex-card"><span class="lab">What the agent does</span><p>1. Finds the latest sales file · 2. Compares it with last week · 3. Drafts a one-page update · 4. <b>Stops and waits for your approval</b></p></div>
+    <div class="grid2">
+      <div class="ex-card"><span class="lab">Another example</span><p>"Group this week's support tickets by theme and draft a summary. Don't send anything."</p></div>
+      <div class="ex-card"><span class="lab">Another example</span><p>"Collect the action items from today's three meeting notes into one checklist with owners."</p></div>
+    </div>
+    <p class="tip">You set the goal and you approve the result. Nothing leaves without a human check.</p>` },
+  connectors: { label: "Connector examples", kicker: "2 · Connectors", title: "AI working with your real apps", body: `
+    <div class="ex-card"><span class="lab">Email</span><p class="prompt">Summarise my last five emails with [Client A] and list the questions still waiting for an answer.</p></div>
+    <div class="ex-card"><span class="lab">Calendar</span><p class="prompt">Find a 30-minute slot next week with [Name] and draft the invitation. Don't send it.</p></div>
+    <div class="ex-card"><span class="lab">Files</span><p class="prompt">Open the latest version of the Q3 deck and tell me what changed since the last version.</p></div>
+    <p class="tip">Connect only the apps a task needs, follow your company's AI policy, and approve anything before it is sent.</p>` },
+  skills: { label: "What a Skill looks like", kicker: "3 · Skills", title: "Write your standard once", body: `
+    <div class="ex-card"><span class="lab">Skill: Monthly client report</span>
+      <p><b>Use when:</b> preparing the monthly report for any client.</p>
+      <p><b>Steps:</b> use our report template · start with three headline results · then risks and next steps.</p>
+      <p><b>Standards:</b> formal tone · one page · mark missing facts [TBC] · never include account numbers.</p>
+    </div>
+    <div class="grid2">
+      <div class="ex-card"><span class="lab">Other Skill ideas</span><p>Meeting minutes in our house format · Customer reply in our tone of voice</p></div>
+      <div class="ex-card"><span class="lab">Why it helps</span><p>Every report follows the same standard, whoever asks and whenever they ask.</p></div>
+    </div>` },
+  delegation: { label: "Delegation examples", kicker: "1 · Delegation", title: "AI, you, or both?", body: `
+    <div class="grid2">
+      <div class="ex-card"><span class="lab">Give to AI</span><p>First drafts · summaries · reformatting · translating · brainstorming options</p></div>
+      <div class="ex-card"><span class="lab">Do together</span><p>AI drafts the weekly update, you edit and decide what reaches the client</p></div>
+      <div class="ex-card"><span class="lab">Keep with you</span><p>Decisions about people · confidential matters · final judgment on anything that goes out</p></div>
+    </div>` },
+  description: { label: "Weak vs strong prompt", kicker: "2 · Description", title: "Give the task, the context, your standards", body: `
+    <div class="grid2">
+      <div class="ex-card weak"><span class="lab">Weak</span><p class="prompt">Write an email about the new policy.</p></div>
+      <div class="ex-card strong"><span class="lab">Strong</span><p class="prompt">You are an HR partner. Audience: all staff. Explain the new hybrid-work policy in under 180 words, friendly but clear. Mark any missing facts [TBC].</p></div>
+    </div>
+    <p class="tip">Ask yourself: what would a capable new colleague need to know to do this well?</p>` },
+  discernment: { label: "How to check AI output", kicker: "3 · Discernment", title: "Fluent is not the same as correct", body: `
+    <div class="ex-card"><span class="lab">Quick checks</span>
+      <p>✓ Open every citation and find the exact sentence that supports the claim.<br>✓ Check numbers against the original source.<br>✓ Look for names, quotes or dates that might be invented.<br>✓ Ask: is this relevant and fit for my purpose?</p>
+    </div>
+    <div class="ex-card"><span class="lab">Example</span><p>AI writes "Sales grew 18% (Source: Q2 report)". Open the Q2 report. If you can't find 18%, the number does not go in.</p></div>` },
+  safety: { label: "Placeholder examples", kicker: "Data safety", title: "Keep the task, drop the risk", body: `
+    <div class="grid2">
+      <div class="ex-card weak"><span class="lab">Don't paste</span><p class="prompt">Northwind Ltd owes $2.4M by 30 Nov. Draft a reminder.</p></div>
+      <div class="ex-card strong"><span class="lab">Paste this instead</span><p class="prompt">[Client A] owes [Amount] by [Date]. Draft a reminder.</p></div>
+      <div class="ex-card weak"><span class="lab">Don't paste</span><p class="prompt">Employee Sara Ahmed, ID 2875510, was late 4 times…</p></div>
+      <div class="ex-card strong"><span class="lab">Paste this instead</span><p class="prompt">[Employee] was late [N] times this month. Draft a supportive check-in message.</p></div>
+    </div>
+    <p class="tip">Check attachments too: a file name or a spreadsheet tab can contain client data even when your prompt does not.</p>` },
+};
+
+const QUIZ = [
+  { id: "q1", q: "According to the research in the video, what is the top work use of ChatGPT?", o: ["Writing", "Writing code", "Creating images", "Scheduling meetings"], a: 0,
+    why: "About 40% of ChatGPT work messages are about writing, and two-thirds of those ask AI to improve the person's own text." },
+  { id: "q2", q: "Before a meeting, you want AI to read your latest email thread with a client. What makes that possible?", o: ["A longer prompt", "A connector", "A Skill", "A newer model"], a: 1,
+    why: "A connector links AI to the apps where your work lives, such as email, calendar and files." },
+  { id: "q3", q: "An AI answer sounds confident and includes three citations. What should you do?", o: ["Use it. Citations prove it is right.", "Ask the AI if it is sure.", "Open each citation and find the sentence that supports the claim.", "Shorten it and send it."], a: 2,
+    why: "Fluent language is not evidence. Discernment means checking the sources yourself." },
+  { id: "q4", q: "AI drafts the weekly update. You decide what reaches the client. Which skill is this?", o: ["Delegation", "Description", "Discernment", "Diligence"], a: 0,
+    why: "Delegation is deciding what belongs to AI, what stays with you, and what you do together." },
+  { id: "q5", q: "Which of these is safe to paste into a free AI tool?", o: ["Northwind Ltd owes $2.4M by 30 Nov. Draft a reminder.", "[Client A] owes [Amount] by [Date]. Draft a reminder.", "Here is my CRM login so you can check the account.", "The attached unreleased client contract."], a: 1,
+    why: "Placeholders keep the task and drop the risk. Real names, amounts, logins and unreleased documents stay out." },
+];
+
+const $ = (id) => document.getElementById(id);
+const vid = $("vid"), layer = $("layer"), hot = $("hot");
+const state = { answered: {}, seenEx: {}, modal: null, ccOn: false, started: false, ended: false, lastT: 0, wasPlaying: false, resumeAt: null };
+const fmt = (s) => { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+const DUR = TL.duration;
+
+/* ---------- SCORM 1.2 (only active inside an LMS) ---------- */
+const SCORM = (() => {
+  let api = null;
+  try { let w = window; for (let i = 0; i < 10 && w; i++) { if (w.API) { api = w.API; break; } if (w.parent === w) break; w = w.parent; } if (!api && window.opener && window.opener.API) api = window.opener.API; } catch (e) {}
+  const call = (fn, ...a) => { try { return api ? api[fn](...a) : ""; } catch (e) { return ""; } };
+  return { init() { call("LMSInitialize", ""); call("LMSSetValue", "cmi.core.lesson_status", "incomplete"); call("LMSCommit", ""); },
+    finish(score) { call("LMSSetValue", "cmi.core.score.min", "0"); call("LMSSetValue", "cmi.core.score.max", "100"); call("LMSSetValue", "cmi.core.score.raw", String(score));
+      call("LMSSetValue", "cmi.core.lesson_status", score >= 80 ? "passed" : "completed"); call("LMSCommit", ""); },
+    quit() { call("LMSFinish", ""); } };
+})();
+window.addEventListener("pagehide", () => SCORM.quit());
+
+/* ---------- progress bar markers ---------- */
+function buildMarks() {
+  const m = $("marks"); m.innerHTML = "";
+  TL.chapters.forEach((c) => { const d = document.createElement("div"); d.className = "chap"; d.style.left = (c.t / DUR * 100) + "%"; d.title = c.n; m.appendChild(d); });
+  Object.entries(TL.hot).forEach(([k, [s]]) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "mk ex" + (state.seenEx[k] ? " seen" : ""); b.style.left = (s / DUR * 100) + "%";
+    b.title = "Jump to: " + EXAMPLES[k].label; b.setAttribute("aria-label", "Jump to: " + EXAMPLES[k].label);
+    b.dataset.t = s; b.dataset.k = k; m.appendChild(b);
+  });
+  QUIZ.forEach((q) => {
+    const d = document.createElement("div"); const r = state.answered[q.id];
+    d.className = "mk q" + (r === undefined ? "" : r ? " done-ok" : " done-bad"); d.style.left = (TL.quiz[q.id] / DUR * 100) + "%"; d.title = "Question"; m.appendChild(d);
+  });
+}
+
+/* ---------- playback ---------- */
+function play() { state.started = true; $("start").hidden = true; vid.play().catch(() => {}); }
+function pause() { vid.pause(); }
+$("startBtn").addEventListener("click", () => { SCORM.init(); unlockAudio(); play(); });
+$("playBtn").addEventListener("click", () => { if (!state.started) { SCORM.init(); unlockAudio(); } if (state.ended) restart(); else (vid.paused ? play() : pause()); });
+vid.addEventListener("play", () => { $("playBtn").textContent = "❚❚"; $("playBtn").setAttribute("aria-label", "Pause"); });
+vid.addEventListener("pause", () => { $("playBtn").textContent = "▶"; $("playBtn").setAttribute("aria-label", "Play"); });
+document.addEventListener("keydown", (e) => { if (e.code === "Space" && !state.modal && e.target === document.body) { e.preventDefault(); $("playBtn").click(); } });
+$("ccBtn").addEventListener("click", () => { state.ccOn = !state.ccOn; $("ccBtn").setAttribute("aria-pressed", String(state.ccOn)); $("ccBtn").title = state.ccOn ? "Captions (on)" : "Captions (off)"; tick(); });
+$("fsBtn").addEventListener("click", async () => {
+  const de = document.documentElement;
+  if (document.fullscreenElement) { try { await document.exitFullscreen(); } catch (e) {} return; }
+  if (document.body.classList.contains("theater")) { document.body.classList.remove("theater"); return; }
+  if (de.requestFullscreen) {
+    try { await de.requestFullscreen({ navigationUI: "hide" }); try { await screen.orientation.lock("landscape"); } catch (e) {} return; } catch (e) {}
+  }
+  document.body.classList.add("theater"); window.scrollTo(0, 0);   // iPhone: no full-screen API for pages
+});
+document.addEventListener("fullscreenchange", () => { if (!document.fullscreenElement) { try { screen.orientation.unlock(); } catch (e) {} } });
+/* seeking: click or drag the bar; the video seeks once on release (smooth on slow connections) */
+function seekTo(t) {
+  t = Math.max(0, Math.min(DUR - 0.2, t));
+  if (state.modal === "ex") closeExamples();
+  vid.currentTime = t; showPos(t);
+  if (!state.started) { SCORM.init(); unlockAudio(); play(); } else if (vid.paused && !state.modal && !state.ended) play();
+}
+function showPos(t) { const pc = (t / DUR * 100) + "%"; $("fill").style.width = pc; $("knob").style.left = pc; $("time").textContent = fmt(t) + " / " + fmt(DUR); }
+(() => {
+  const bar = $("bar"); let drag = null;
+  const tAt = (x) => { const r = bar.getBoundingClientRect(); return Math.max(0, Math.min(1, (x - r.left) / r.width)) * DUR; };
+  bar.addEventListener("pointerdown", (e) => {
+    if (state.modal === "quiz" || state.modal === "end") return;
+    const mk = e.target.closest(".mk.ex");
+    drag = { id: e.pointerId, x0: e.clientX, t: mk ? +mk.dataset.t + 0.1 : tAt(e.clientX), moved: false };
+    state.scrubbing = true; bar.setPointerCapture(e.pointerId); showPos(drag.t); e.preventDefault();
+  });
+  bar.addEventListener("pointermove", (e) => { if (!drag || e.pointerId !== drag.id) return; if (Math.abs(e.clientX - drag.x0) > 4) drag.moved = true; if (drag.moved) { drag.t = tAt(e.clientX); showPos(drag.t); } });
+  const end = (e) => { if (!drag || e.pointerId !== drag.id) return; const t = drag.t; drag = null; state.scrubbing = false; seekTo(t); };
+  bar.addEventListener("pointerup", end); bar.addEventListener("pointercancel", end);
+})();
+document.addEventListener("keydown", (e) => { if (state.modal || e.target !== document.body) return; if (e.key === "ArrowRight") { e.preventDefault(); seekTo(vid.currentTime + 5); } if (e.key === "ArrowLeft") { e.preventDefault(); seekTo(vid.currentTime - 5); } });
+
+/* loading spinner + stall recovery */
+let stallT = null;
+const showBuf = (on) => { $("buf").hidden = !on; clearTimeout(stallT); if (on) stallT = setTimeout(() => { if (!vid.paused && vid.readyState < 3) { const t = vid.currentTime; vid.currentTime = t + 0.01; vid.play().catch(() => {}); } }, 6000); };
+["waiting", "seeking"].forEach((ev) => vid.addEventListener(ev, () => { if (!vid.paused) showBuf(true); }));
+["playing", "canplay", "seeked", "pause"].forEach((ev) => vid.addEventListener(ev, () => { if (ev !== "seeked" || vid.readyState >= 3) showBuf(false); }));
+
+function tick() {
+  if (state.scrubbing) return;
+  const t = vid.currentTime;
+  showPos(t);
+  // captions
+  const cue = state.ccOn ? TL.cues.find((c) => t >= c.s && t < c.e) : null;
+  $("cap").hidden = !cue; if (cue) $("cap").textContent = cue.t;
+  // chapter
+  let ch = TL.chapters.filter((c) => t >= c.t).pop(); $("chapName").textContent = ch ? ch.n : "Welcome";
+  // hotspot
+  const k = Object.keys(TL.hot).find((key) => t >= TL.hot[key][0] && t <= TL.hot[key][1]);
+  if (k && !state.modal) { hot.hidden = false; hot.dataset.k = k; $("hotLabel").textContent = EXAMPLES[k].label; } else hot.hidden = true;
+  // question checkpoints crossed while playing (or by seeking forward)
+  if (!state.modal && !vid.paused) {
+    const due = QUIZ.find((q) => state.answered[q.id] === undefined && TL.quiz[q.id] <= t && TL.quiz[q.id] > state.lastT - 0.05);
+    if (due) { if (t - state.lastT > 1.5) state.resumeAt = t; vid.pause(); vid.currentTime = TL.quiz[due.id]; openQuiz(due); }
+  }
+  state.lastT = t;
+}
+vid.addEventListener("timeupdate", tick);
+vid.addEventListener("seeked", () => { state.lastT = Math.min(state.lastT, vid.currentTime); tick(); });
+(function loop() { if (!vid.paused) tick(); requestAnimationFrame(loop); })();
+hot.addEventListener("click", () => openExamples(hot.dataset.k));
+vid.addEventListener("ended", showResults);
+
+/* ---------- example modal with auto-resume ---------- */
+let cdTimer = null;
+function openExamples(k) {
+  const ex = EXAMPLES[k]; state.wasPlaying = !vid.paused && state.started; pause();
+  state.seenEx[k] = true; $("exCount").textContent = Object.keys(state.seenEx).length + " / 8"; buildMarks();
+  state.modal = "ex"; hot.hidden = true;
+  const AUTO = 25;
+  layer.innerHTML = `<div class="panel pop" role="dialog" aria-modal="true" aria-labelledby="exTitle">
+    <div class="panel-head"><span class="kicker">${ex.kicker} · examples</span><h3 id="exTitle">${ex.title}</h3></div>
+    <div class="panel-body">${ex.body}</div>
+    <div class="panel-foot">
+      <button class="btn primary" id="exGo" type="button">${state.wasPlaying ? "Continue video" : "Close"}</button>
+      ${state.wasPlaying ? `<button class="btn ghost" id="exHold" type="button">Keep reading</button>
+      <div class="countdown" id="cd"><span id="cdText">Video continues in ${AUTO}s</span><div class="cd-track"><div class="cd-fill" id="cdFill"></div></div></div>` : ""}
+    </div></div>`;
+  layer.hidden = false; $("exGo").focus();
+  $("exGo").addEventListener("click", closeExamples);
+  if (state.wasPlaying) {
+    let left = AUTO * 10;
+    cdTimer = setInterval(() => { left--; $("cdFill").style.width = (left / (AUTO * 10) * 100) + "%"; $("cdText").textContent = "Video continues in " + Math.ceil(left / 10) + "s"; if (left <= 0) closeExamples(); }, 100);
+    $("exHold").addEventListener("click", () => { clearInterval(cdTimer); cdTimer = null; $("cd").innerHTML = '<span>Take your time. Press Continue when you are ready.</span>'; $("exHold").remove(); });
+  }
+}
+function closeExamples() { clearInterval(cdTimer); cdTimer = null; layer.hidden = true; layer.innerHTML = ""; state.modal = null; if (state.wasPlaying) play(); }
+layer.addEventListener("keydown", (e) => { if (e.key === "Escape" && state.modal === "ex") closeExamples(); });
+
+/* ---------- quiz ---------- */
+function openQuiz(q) {
+  state.modal = "quiz"; hot.hidden = true; const n = QUIZ.indexOf(q) + 1;
+  layer.innerHTML = `<div class="panel pop" id="qPanel" role="dialog" aria-modal="true" aria-labelledby="qTitle">
+    <div class="panel-head"><span class="kicker">Quick check · question ${n} of 5${state.resumeAt ? " · answer to skip ahead" : ""}</span><h3 id="qTitle">${q.q}</h3></div>
+    <div class="panel-body"><div class="opts">${q.o.map((o, i) => `<button class="opt" type="button" data-i="${i}"><span class="k">${"ABCD"[i]}</span><span>${o}</span></button>`).join("")}</div><div id="fb"></div></div>
+    <div class="panel-foot" id="qFoot" hidden><button class="btn primary" id="qGo" type="button">Continue video</button></div></div>`;
+  layer.hidden = false; layer.querySelector(".opt").focus();
+  layer.querySelectorAll(".opt").forEach((b) => b.addEventListener("click", () => answer(q, +b.dataset.i)));
+}
+function answer(q, i) {
+  const ok = i === q.a; state.answered[q.id] = ok; buildMarks();
+  const opts = layer.querySelectorAll(".opt"); opts.forEach((b) => (b.disabled = true));
+  opts[q.a].classList.add("right"); if (!ok) opts[i].classList.add("wrong");
+  $("fb").innerHTML = ok
+    ? `<div class="feedback ok pop"><strong>Correct! Well done.</strong><span>${q.why}</span></div>`
+    : `<div class="feedback bad"><strong>Not quite.</strong><span>The right answer is <b>${"ABCD"[q.a]}: ${q.o[q.a]}</b><br>${q.why}</span></div>`;
+  if (ok) { confetti(); chime(true); } else { $("qPanel").classList.remove("pop"); void $("qPanel").offsetWidth; $("qPanel").classList.add("shake"); chime(false); }
+  $("qScore").textContent = Object.values(state.answered).filter(Boolean).length + " / 5";
+  $("qFoot").hidden = false; $("qGo").focus();
+  $("qGo").addEventListener("click", () => {
+    layer.hidden = true; layer.innerHTML = ""; state.modal = null;
+    const target = state.resumeAt;
+    const next = target ? QUIZ.find((x) => state.answered[x.id] === undefined && TL.quiz[x.id] > TL.quiz[q.id] && TL.quiz[x.id] <= target) : null;
+    if (next) { vid.currentTime = TL.quiz[next.id]; openQuiz(next); return; }   // answer every skipped question first
+    state.resumeAt = null;
+    vid.currentTime = target ? target : TL.quiz[q.id] + 0.05; state.lastT = vid.currentTime; play();
+  });
+}
+
+/* ---------- results ---------- */
+function showResults() {
+  state.ended = true; const right = Object.values(state.answered).filter(Boolean).length; const score = Math.round(right / 5 * 100);
+  SCORM.finish(score);
+  state.modal = "end";
+  layer.innerHTML = `<div class="panel pop" role="dialog" aria-modal="true" aria-labelledby="rTitle">
+    <div class="panel-head"><span class="kicker">Your result</span><h3 id="rTitle">${right >= 4 ? "You think like the 19%." : right >= 3 ? "Good start. Keep practising." : "Worth another look."}</h3></div>
+    <div class="panel-body"><div class="score">${right} / 5</div>
+      <div class="result-row">${QUIZ.map((q, i) => { const r = state.answered[q.id]; return `<span class="${r ? "r-ok" : "r-bad"}">Q${i + 1} ${r === undefined ? "–" : r ? "✓" : "✕"}</span>`; }).join("")}</div>
+      <p>Examples explored: <b>${Object.keys(state.seenEx).length} of 8</b>. Missed some? Tap a gold dot on the timeline to jump back to it.</p>
+      <p class="tip">Get ready to start your AI training with Skills Bank, and change the world with AI.</p></div>
+    <div class="panel-foot"><button class="btn primary" id="again" type="button">Watch again</button><button class="btn ghost" id="closeR" type="button">Close</button></div></div>`;
+  layer.hidden = false; if (right >= 4) { confetti(); chime(true); }
+  $("again").addEventListener("click", restart);
+  $("closeR").addEventListener("click", () => { layer.hidden = true; layer.innerHTML = ""; state.modal = null; });
+}
+function restart() { layer.hidden = true; layer.innerHTML = ""; state.modal = null; state.answered = {}; state.ended = false; $("qScore").textContent = "0 / 5"; buildMarks(); vid.currentTime = 0; state.lastT = 0; play(); }
+
+/* ---------- celebration: confetti + chime (no external assets) ---------- */
+function confetti() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c = $("confetti"); c.hidden = false; const x = c.getContext("2d"); const W = (c.width = innerWidth * devicePixelRatio), H = (c.height = innerHeight * devicePixelRatio);
+  const cols = ["#FFBC3A", "#EBF4FF", "#40BDA9", "#4D88E8", "#F26444"];
+  const P = Array.from({ length: 160 }, () => ({ x: W / 2 + (Math.random() - .5) * W * .3, y: H * .45, vx: (Math.random() - .5) * 22 * devicePixelRatio, vy: (-Math.random() * 20 - 8) * devicePixelRatio, s: (6 + Math.random() * 7) * devicePixelRatio, r: Math.random() * 6, vr: (Math.random() - .5) * .3, c: cols[Math.floor(Math.random() * cols.length)] }));
+  let f = 0; (function step() { x.clearRect(0, 0, W, H); P.forEach((p) => { p.vy += .55 * devicePixelRatio; p.x += p.vx; p.y += p.vy; p.vx *= .99; p.r += p.vr; x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c; x.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); x.restore(); });
+    if (++f < 150) requestAnimationFrame(step); else { x.clearRect(0, 0, W, H); c.hidden = true; } })();
+}
+let AC = null; function unlockAudio() { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); AC.resume(); } catch (e) {} }
+function chime(good) {
+  if (!AC) return; const t0 = AC.currentTime; const notes = good ? [523.25, 659.25, 783.99, 1046.5] : [311.13, 233.08];
+  notes.forEach((f, i) => { const o = AC.createOscillator(), g = AC.createGain(); o.type = good ? "triangle" : "sine"; o.frequency.value = f; const s = t0 + i * (good ? .09 : .16);
+    g.gain.setValueAtTime(0, s); g.gain.linearRampToValueAtTime(.18, s + .02); g.gain.exponentialRampToValueAtTime(.001, s + (good ? .5 : .35)); o.connect(g).connect(AC.destination); o.start(s); o.stop(s + .6); });
+}
+
+buildMarks(); tick();
+</script>
+
+</body>
+</html>
